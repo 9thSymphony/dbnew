@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { Form, Button, Card, Row, Col } from "react-bootstrap";
 
 function Login() {
   const history = useNavigate();
@@ -29,37 +30,50 @@ function Login() {
   }
 
   return (
-    <div className="login">
-      <h1>Login</h1>
+    <div className="App">
+      <div className="auth-form-container">
+        <Card className="auth-card" style={{ backgroundColor: "green", color: "white" }}>
+          <Card.Body>
+            <Form>
+              <Row className="mb-3">
+                <Form.Label column sm={3}>Email address</Form.Label>
+                <Col sm={9}>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setErrorMessage(""); // Clear error message when input changes
+                    }}
+                  />
+                </Col>
+              </Row>
 
-      {errorMessage && <p>{errorMessage}</p>}
+              <Row className="mb-3">
+                <Form.Label column sm={3}>Password</Form.Label>
+                <Col sm={9}>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setErrorMessage(""); // Clear error message when input changes
+                    }}
+                  />
+                </Col>
+              </Row>
 
-      <form action="POST">
-        <input
-          type="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-            setErrorMessage(""); // Clear error message when input changes
-          }}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setErrorMessage(""); // Clear error message when input changes
-          }}
-          placeholder="Password"
-        />
+              <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Check me out" />
+              </Form.Group>
 
-        <input type="submit" onClick={submit} />
-      </form>
-
-      <br />
-      <p>OR</p>
-      <br />
-
-      <Link to="/signup">Signup Page</Link>
+              <Button variant="secondary" type="submit" onClick={submit}>
+                Submit
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </div>
     </div>
   );
 }
